@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Table</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px; /* Adds spacing around the content */
+        }
+        .container {
+            margin: 0 auto; /* Centers the content */
+            max-width: 90%; /* Limits the width of the page */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td.audio-cell {
+            width: 12%; /* Adjust width of audio columns */
+        }
+        td.audio-cell audio {
+            width: 100%; /* Makes audio player fill the cell */
+        }
+        .title {
+        background-color: rgb(0,80,0);
+        width: 100%;
+        text-align: center
+      }
+
+      .title td{
+        padding: 5px;
+      }
+
+      .title .logo{
+        width: 220px;
+      }
+
+      .title h1{
+        font-size: 18pt;
+        font-family: avant garde, verdana, helvetica, sans-serif;
+        color: white;
+        line-height: 1.15;
+      }
+
+      .title h2{
+        font-size: 12pt;
+        font-family: georgia, times new roman, serif;
+        font-style: italic;
+        color: white;
+        line-height: 1.15;
+      }
+    </style>
+</head>
+<body>
+    <table class="title">
+        <tbody>
+        <tr>
+        <td>
+        <h1>Audiobox TTA-RAG: Improving Zero-Shot and Few-Shot Text-To-Audio with Retrieval-Augmented Generation</h1>
+        <h2>Mu Yang<sup>1</sup>, Bowen Shi<sup>2</sup>, Matthew Le<sup>2</sup>, Wei-Ning Hsu<sup>2</sup>, Andros Tjandra<sup>2</sup></h2>
+        <h2><sup>1</sup>Center for Robust Speech Systems (CRSS), University of Texas at Dallas, USA</h2>
+        <h2><sup>2</sup>Meta AI, USA</h2>
+        </td>
+        </tbody>
+    </table>
+    <div class="container">
+        <h1>Audiobox TTA-RAG</h1>
+        <p>Audio samples for the paper "Audiobox TTA-RAG: Improving Zero-Shot and Few-Shot Text-To-Audio with Retrieval-Augmented Generation". <a href="https://arxiv.org/abs/2411.05141">arXiv</a></p>
+        <p>We propose <b>Audiobox TTA-RAG</b>, a novel retrieval-augmented TTA approach based on 
+            <a href="https://scontent-dfw5-2.xx.fbcdn.net/v/t39.2365-6/416201240_1109648396840016_4084243924939353841_n.pdf?_nc_cat=102&ccb=1-7&_nc_sid=3c67a6&_nc_ohc=P4uKTa05iQoQ7kNvgHzHxBC&_nc_zt=14&_nc_ht=scontent-dfw5-2.xx&_nc_gid=AYcgU8x-NDH-56kP_Fcpo8w&oh=00_AYB1VbjL1JF0X2qcvufXoNd0Fbs1AeQQuAK_IAEbohESvA&oe=6739C349">Audiobox</a>, 
+            a conditional flow-matching audio generation model. Unlike the vanilla Audiobox TTA solution which generates audio conditioned on text, 
+            we augmented the conditioning input with retrieved audio samples that provide additional acoustic information to generate the target audio.</p>
+        <p>The proposed Audiobox TTA-RAG uses as conditioning contexts both the text and audio samples retrieved using the input text.
+            Below we showcase outputs from a model trained with top-3 retrieved audio samples. 
+            We show the ground truth audio of the input text (<b>Ground Truth</b>), the output of the TTA baseline (<b>Audiobox TTA</b>), 
+            the retrieved audio samples used during inference (<b>Retrieved Audio 1-3</b>) and the output from the proposed Audiobox TTA-RAG (<b>Audiobox TTA-RAG</b>).
+        </p>
+        <p>We show audio samples on 3 evaluation sets: zero-shot set, few-shot set and the AudioCaps test set.</p>
+        <hr>
+        <h1>Zero-shot evaluation set samples</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Text</th>
+                    <th>Ground Truth</th>
+                    <th>Audiobox TTA (baseline)</th>
+                    <th>Retrieved Audio 1</th>
+                    <th>Retrieved Audio 2</th>
+                    <th>Retrieved Audio 3</th>
+                    <th>Audiobox TTA-RAG (proposed)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>The audio primarily consists of rhythmic heartbeats and the sound of a heartbeat.</td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/gt_audio/sample_2495.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/tta_audio/sample_2495.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_2495.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_2495.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_2495.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/ttarag_audio/sample_2495.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>The audio primarily consists of a 'jingle bell' sound that's bright and ringing.</td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/gt_audio/sample_193.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/tta_audio/sample_193.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_193.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_193.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_193.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/ttarag_audio/sample_193.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>The audio primarily consists of music and a 'pizzicato' sound effect.</td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/gt_audio/sample_2622.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/tta_audio/sample_2622.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_2622.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_2622.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_2622.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/ttarag_audio/sample_2622.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>In this audio, you can hear the sounds of a ukulele and some background noise.</td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/gt_audio/sample_4058.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/tta_audio/sample_4058.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_4058.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_4058.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_4058.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/ttarag_audio/sample_4058.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>The audio primarily consists of a single note being played on a zither.</td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/gt_audio/sample_332.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/tta_audio/sample_332.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_332.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_332.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/rets_audio/sample_332.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="zero_shot/ttarag_audio/sample_332.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h1>Few-shot evaluation set samples</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Text</th>
+                    <th>Ground Truth</th>
+                    <th>Audiobox TTA (baseline)</th>
+                    <th>Retrieved Audio 1</th>
+                    <th>Retrieved Audio 2</th>
+                    <th>Retrieved Audio 3</th>
+                    <th>Audiobox TTA-RAG (proposed)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>The audio contains sounds of a camera shutter, mechanical sounds, and a repetitive ticking sound.</td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/gt_audio/sample_240.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/tta_audio/sample_240.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_240.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_240.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_240.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/ttarag_audio/sample_240.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>The audio contains the sound of a zipper being zipped, some background noise, and the sound of a tap.</td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/gt_audio/sample_381.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/tta_audio/sample_381.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_381.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_381.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_381.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/ttarag_audio/sample_381.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>The audio primarily consists of the sounds of bird vocalizations and a hooting sound.</td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/gt_audio/sample_210.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/tta_audio/sample_210.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_210.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_210.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_210.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/ttarag_audio/sample_210.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>The audio primarily consists of rhythmic footsteps, background noise, panting, and sharp, loud bursts of sounds.</td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/gt_audio/sample_264.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/tta_audio/sample_264.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_264.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_264.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_264.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/ttarag_audio/sample_264.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>The audio features music and sound effects, including an explosion and a whooshing sound, all happening against a backdrop of video game sounds and a sound effect.</td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/gt_audio/sample_133.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/tta_audio/sample_133.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_133.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_133.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/rets_audio/sample_133.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="few_shot/ttarag_audio/sample_133.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h1>AudioCaps test set samples</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Text</th>
+                    <th>Ground Truth</th>
+                    <th>Audiobox TTA (baseline)</th>
+                    <th>Retrieved Audio 1</th>
+                    <th>Retrieved Audio 2</th>
+                    <th>Retrieved Audio 3</th>
+                    <th>Audiobox TTA-RAG (proposed)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>birds chirping and water dripping with some banging in the background</td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/gt_audio/sample_685.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/tta_audio/sample_685.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_685.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_685.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_685.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/ttarag_audio/sample_685.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>an electronic signal followed by compressed air releasing then an electronic bell playing as a train runs on tracks in the background</td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/gt_audio/sample_258.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/tta_audio/sample_258.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_258.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_258.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_258.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/ttarag_audio/sample_258.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>rain falling followed by fabric rustling and footsteps shuffling then a vehicle door opening and closing as plastic crinkles</td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/gt_audio/sample_218.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/tta_audio/sample_218.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_218.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_218.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_218.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/ttarag_audio/sample_218.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>an animal heavily breathing then snorting followed by footsteps on a hard surface and a camera muffling</td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/gt_audio/sample_612.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/tta_audio/sample_612.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_612.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_612.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_612.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/ttarag_audio/sample_612.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+                <tr>
+                    <td>various insects and bugs are chirping with a rodent breathing sound in the background</td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/gt_audio/sample_491.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/tta_audio/sample_491.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_491.ret0.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_491.ret1.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/rets_audio/sample_491.ret2.flac" type="audio/wav">Your browser does not support audio.</audio></td>
+                    <td class="audio-cell"><audio controls><source src="ac_test/ttarag_audio/sample_491.wav" type="audio/wav">Your browser does not support audio.</audio></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
